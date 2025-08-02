@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:yoga_trainer/core/color_manager.dart';
+import 'package:yoga_trainer/modelView/session_provider.dart';
 
 class TrainingScreen extends StatelessWidget {
   const TrainingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<SessionProvider>(context).loadSession();
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -36,12 +40,16 @@ class TrainingScreen extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: ColorManager.greenGrey,
+                  color: ColorManager.grey,
                 ),
               ),
               SizedBox(
                 height: 353,
-                child: Image.asset('assets/images/Copy of Base.png'),
+                child: Consumer<SessionProvider>(
+                  builder: (context, sessionProvider, state) {
+                    return Image.asset(sessionProvider.trial);
+                  },
+                ),
               ),
               Container(
                 height: 180,
@@ -61,9 +69,12 @@ class TrainingScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Text(
-                'Skip',
-                style: TextStyle(fontSize: 24, color: ColorManager.green),
+              TextButton(
+                onPressed: () {},
+                child: Text(
+                  'Skip',
+                  style: TextStyle(fontSize: 24, color: ColorManager.green),
+                ),
               ),
             ],
           ),

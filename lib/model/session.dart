@@ -1,7 +1,3 @@
-import 'dart:convert';
-
-import 'package:flutter/services.dart';
-
 class Session {
   final Map<String, dynamic> metadata;
   final Map<String, dynamic> assets;
@@ -18,21 +14,8 @@ class Session {
     return Session(
       metadata: json['metadata'],
       assets: json['assets'],
-      audio: json['audio'],
+      audio: json['assets']['audio'],
       sequence: json['sequence'],
     );
   }
-}
-
-Future<List<Session>> loadSession() async {
-  final manifest = await rootBundle.loadString('AssetsManifest.json');
-  final files = jsonDecode(
-    manifest,
-  ).keys.where((path) => path.contains('sessions/'));
-  final List<Session> sessions = [];
-  for (var file in files) {
-    final session = await rootBundle.loadString(file);
-    sessions.add(Session.fromJson(jsonDecode(session)));
-  }
-  return sessions;
 }
