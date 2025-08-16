@@ -80,7 +80,7 @@ class TrainingScreen extends StatelessWidget {
                         'Skip',
                         style: TextStyle(
                           fontSize: 24,
-                          color: ColorManager.green
+                          color: ColorManager.green,
                         ),
                       ),
                     ),
